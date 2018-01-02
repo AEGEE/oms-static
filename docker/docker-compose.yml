@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
 
-### OMS-LEGACY        #######################################
+### OMS-STATIC        #######################################
 
     oms-static:
         build:
@@ -18,7 +18,14 @@ services:
               source: ./$PATH_OMS_STATIC/../logs/
               target: /usr/app/logs
         expose:
-          - "80"
+          - "8100"
+        labels:
+          - "traefik.backend=oms-static"
+          - "traefik.port=8100"
+          - "traefik.enable=true"
+          - "traefik.frontend.rule=PathPrefix: /discounts/"
+          - "traefik.frontend.priority=20"
+          - "registry.description=The static service, serving static web pages"
 networks:
   default:
     external:
