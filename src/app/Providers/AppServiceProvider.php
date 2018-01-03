@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use URL;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Compatibility with microservice setup.
+        URL::forceRootUrl("http://appserver/static/");
     }
 
     /**

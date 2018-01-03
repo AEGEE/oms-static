@@ -21,7 +21,7 @@ services:
           - "traefik.backend=oms-static"
           - "traefik.port=80"
           - "traefik.enable=true"
-          - "traefik.frontend.rule=PathPrefix: /discounts"
+          - "traefik.frontend.rule=PathPrefix: /static/; PathPrefixStrip: /static/"
           - "traefik.frontend.priority=20"
           - "registry.description=The static service, serving static web pages"
 networks:
