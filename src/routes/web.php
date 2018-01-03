@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
+
 Route::get('/discounts', function () {
-    return redirect('public/discounts');
+    include './discounts/index.php';
 });
-*/

@@ -1,0 +1,18 @@
+language: shell
+dist: trusty
+sudo: required
+
+services:
+  - docker
+
+before_script:
+    - cd docker
+    - docker network create OMS
+    - travis_retry docker-compose up -d
+    - sleep 30
+    - docker-compose logs
+
+
+script:
+    - docker-compose exec -T -d oms-static true 2>/dev/null || exit 1
+    - sudo docker-compose run -T php-fpm ./vendor/bin/phpunit
