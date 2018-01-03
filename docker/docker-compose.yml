@@ -17,13 +17,11 @@ services:
             - type: bind
               source: ./$PATH_OMS_STATIC/../logs/
               target: /usr/app/logs
-        expose:
-          - "8100"
         labels:
           - "traefik.backend=oms-static"
-          - "traefik.port=8100"
+          - "traefik.port=80"
           - "traefik.enable=true"
-          - "traefik.frontend.rule=PathPrefix: /discounts/"
+          - "traefik.frontend.rule=PathPrefix: /discounts"
           - "traefik.frontend.priority=20"
           - "registry.description=The static service, serving static web pages"
 networks:
