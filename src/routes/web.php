@@ -12,5 +12,5 @@
 */
 
 Route::get('/discounts', function () {
-    include './discounts/index.php';
+    include public_path() . '/discounts/index.php';
 });

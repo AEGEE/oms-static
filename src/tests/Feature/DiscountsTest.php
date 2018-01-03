@@ -14,8 +14,7 @@ class DiscountsTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/public/discounts');
-        dump($response);
+        $response = $this->get('/discounts');
         $response->assertStatus(200);
     }
 }
