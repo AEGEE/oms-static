@@ -7,6 +7,8 @@ use Session;
 
 class IntranetSessionGuard implements StatefulGuard
 {
+    use \Illuminate\Auth\GuardHelpers;
+
     /**
      * Determine if the current user is authenticated.
      *
@@ -61,7 +63,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @return void
      */
-    public function setUser(Authenticatable $user) {
+    public function setUser(\Illuminate\Contracts\Auth\Authenticatable $user) {
         //Do not do anything, not supported.
     }
 
@@ -110,7 +112,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @param  bool  $remember
      * @return void
      */
-    public function login(Authenticatable $user, $remember = false) {
+    public function login(\Illuminate\Contracts\Auth\Authenticatable $user, $remember = false) {
         throw new Exception('Not implemented');
     }
 

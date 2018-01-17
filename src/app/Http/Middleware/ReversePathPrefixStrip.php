@@ -18,6 +18,8 @@ class ReversePathPrefixStrip
     {
         $response = $next($request);
 
+        /*
+
         //TODO: Better fix for this?
         $content = $response->content();
         $content = $this->replace($content);
@@ -26,6 +28,8 @@ class ReversePathPrefixStrip
         if (property_exists($response, 'targetUrl')) {
             $response->setTargetUrl($this->replace($response->getTargetUrl()));
         }
+
+        */
 
         return $response;
     }

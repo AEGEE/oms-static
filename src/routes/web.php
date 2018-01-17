@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('discounts', function () {
+Route::get('static/discounts', function () {
     //This might be a bit of a hack, and not really the laravel way...
     //But I do not know of another way to simply serve a php file
     dd("Logged in!");
@@ -28,18 +28,18 @@ Route::get('discounts', function () {
  * @return void
 */
 // Authentication Routes...
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('static/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('static/login', 'Auth\LoginController@login');
+Route::post('static/logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+Route::get('static/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('static/register', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('static/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('static/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('static/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('static/password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/static/discounts', 'HomeController@index')->name('home');
