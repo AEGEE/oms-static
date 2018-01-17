@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Session;
+use Log;
 
 class IntranetSessionGuard implements StatefulGuard
 {
@@ -15,6 +16,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return bool
      */
     public function check() {
+        Log::debug("check(): " . (session('authenticatedUser') == 'intranet' ? "PASS" : "REJECT"));
         return session('authenticatedUser') == 'intranet';
     }
 
@@ -24,6 +26,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return bool
      */
     public function guest() {
+        Log::debug("guest()");
         return session('authenticatedUser') != 'intranet';
     }
 
@@ -33,6 +36,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function user() {
+        Log::debug("user()");
         return null;
     }
 
@@ -42,6 +46,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return int|null
      */
     public function id() {
+        Log::debug("id()");
         return null;
     }
 
@@ -52,6 +57,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return bool
      */
     public function validate(array $credentials = []) {
+        Log::debug("validate()");
 
         return array_key_exists($credentials, 'legacy_username') && array_key_exists($credentials, 'legacy_password')
             && !empty($credentials['legacy_username']) && !empty($credentials['legacy_password']);
@@ -64,6 +70,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return void
      */
     public function setUser(\Illuminate\Contracts\Auth\Authenticatable $user) {
+        Log::debug("setUser()");
         //Do not do anything, not supported.
     }
 
@@ -80,6 +87,9 @@ class IntranetSessionGuard implements StatefulGuard
      */
     public function attempt(array $credentials = [], $remember = false) {
 
+        Log::debug("Attempting login..");
+        Log::debug($credentials);
+
         $client = new \GuzzleHttp\Client();
         $payload = ['json' => ['legacy_username' => $credentials['legacy_username'], 'legacy_password' => $credentials['legacy_password']]];
         $req = $client->post('oms-legacy/api/intranet/login', $payload);
@@ -87,8 +97,10 @@ class IntranetSessionGuard implements StatefulGuard
 
         if ($intranetLogin) {
             session(['authenticatedUser' => 'intranet']);
+            Log::debug("Login succesfull!");
         } else {
             session(['authenticatedUser' => '']);
+            Log::debug("Login failed :(");
         }
 
         return $intranetLogin;
@@ -102,6 +114,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return bool
      */
     public function once(array $credentials = []) {
+        Log::debug("once()");
         throw new Exception('Not implemented');
     }
 
@@ -113,6 +126,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return void
      */
     public function login(\Illuminate\Contracts\Auth\Authenticatable $user, $remember = false) {
+        Log::debug("login()");
         throw new Exception('Not implemented');
     }
 
@@ -124,6 +138,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function loginUsingId($id, $remember = false) {
+        Log::debug("loginUsingId()");
         throw new Exception('Not implemented');
     }
 
@@ -134,6 +149,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return bool
      */
     public function onceUsingId($id) {
+        Log::debug("onceUsingId()");
         throw new Exception('Not implemented');
     }
 
@@ -143,6 +159,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return bool
      */
     public function viaRemember() {
+        Log::debug("viaRemember()");
         throw new Exception('Not implemented');
     }
 
@@ -152,6 +169,7 @@ class IntranetSessionGuard implements StatefulGuard
      * @return void
      */
     public function logout() {
+        Log::debug("logout()");
         session(['authenticatedUser' => '']);
     }
 }

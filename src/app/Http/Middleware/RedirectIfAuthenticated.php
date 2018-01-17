@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+use Log;
+
 class RedirectIfAuthenticated
 {
     /**
@@ -17,8 +19,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        Log::debug("Checking if authenticated...");
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            Log::debug("Guard check passed, redirecting to /static/discounts...");
+            return redirect('/static/discounts');
         }
 
         return $next($request);

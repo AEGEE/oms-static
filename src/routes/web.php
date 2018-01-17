@@ -14,9 +14,9 @@
 Route::get('static/discounts', function () {
     //This might be a bit of a hack, and not really the laravel way...
     //But I do not know of another way to simply serve a php file
-    dd("Logged in!");
-    include public_path() . '/discounts/index.php';
-})->middleware('auth');
+    dump("DISCOUNTS!!!");
+    include public_path() . '/static/discounts/index.php';
+})->middleware('auth');//->name('home');
 
 
 /**
@@ -41,5 +41,3 @@ Route::get('static/password/reset', 'Auth\ForgotPasswordController@showLinkReque
 Route::post('static/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('static/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('static/password/reset', 'Auth\ResetPasswordController@reset');
-
-Route::get('/static/discounts', 'HomeController@index')->name('home');
