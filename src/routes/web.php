@@ -14,7 +14,7 @@
 Route::get('static/discounts', function () {
     //This might be a bit of a hack, and not really the laravel way...
     //But I do not know of another way to simply serve a php file
-    include public_path() . '/static/discounts/index.php';
+    include public_path() . '/static/discounts/index.html';
 });//->middleware('auth');//->name('home');
 
 
