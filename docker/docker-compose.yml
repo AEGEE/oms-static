@@ -22,7 +22,7 @@ services:
           - "traefik.port=80"
           - "traefik.enable=true"
           - "traefik.frontend.rule=PathPrefix: /static/"
-          - "traefik.frontend.priority=20"
+          - "traefik.frontend.priority=1000"
           - "registry.description=The static service, serving static web pages"
 networks:
   default:
